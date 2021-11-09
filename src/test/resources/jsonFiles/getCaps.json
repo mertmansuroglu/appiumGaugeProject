@@ -1,0 +1,83 @@
+[
+   {
+    "name": "iPhone_13_installed",
+    "capabilities": {
+      "appium:deviceName": "iPhone",
+      "platformName": "iOS",
+      "appium:platformVersion": "15",
+      "appium:automationName": "XCUiTest",
+      "appium:udid": "xxxx",
+      "appium:noReset": "true",
+      "appium:wdaLocalPort": "xxxx",
+      "appium:launchTimeout": "5000",
+      "appium:systemPort": "xxxx",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:bundleId": "com.yedi70.meditasyon"
+    }
+  },
+  {
+    "name": "iPhone_13_toInstall",
+    "capabilities": {
+      "appium:deviceName": "iPhone",
+      "platformName": "iOS",
+      "appium:platformVersion": "15",
+      "appium:automationName": "XCUiTest",
+      "appium:udid": "xxxx",
+      "appium:noReset": "true",
+      "appium:wdaLocalPort": "xxxx",
+      "appium:launchTimeout": "5000",
+      "appium:systemPort": "xxxx",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:bundleId": "com.yedi70.meditasyon",
+      "appium:app": "xxxxx"
+    }
+  },
+  {
+      "name":"Pixel_2_toInstall",
+    "capabilities": {
+      "appium:deviceName": "emulator-5554",
+      "platformName": "android",
+      "appium:platformVersion": "11",
+      "appium:automationName": "uiautomator2",
+      "appium:udid": "xxxx",
+      "appium:noReset": "false",
+      "appium:launchTimeout": "5000",
+      "appium:systemPort": "xxxx",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:appPackage": "app.ibar",
+      "appium:app": "xxxxx",
+      "disableAndroidWatchers": "copy past true",
+      "autoGrantPermissions": "true"
+    }
+  },
+  {
+  "name":"Pixel_2_installed",
+    "capabilities": {
+      "appium:deviceName": "emulator-5554",
+      "platformName": "android",
+      "appium:platformVersion": "11",
+      "appium:automationName": "uiautomator2",
+      "appium:udid": "xxxx",
+      "appium:noReset": "false",
+      "appium:launchTimeout": "5000",
+      "appium:systemPort": "xxxx",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:appPackage": "app.ibar",
+      "appium:appActivity": "ui.splash.view.SplashActivity",
+      "disableAndroidWatchers": "copy past true",
+      "autoGrantPermissions": "true"
+    }
+  }
+]

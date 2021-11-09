@@ -1,0 +1,26 @@
+{
+  "test xpath": {
+    "XPATH": "//*"
+  },
+  "test id": {
+    "ID": "test"
+  },
+  "test name": {
+    "NAME": "jsontest"
+  },
+  "test className": {
+    "CLASS_NAME": "jsonclass"
+  },
+  "test linkText": {
+    "LINK_TEXT": "jsonlink"
+  },
+  "test partialLinkText": {
+    "PARTIAL_LINK_TEXT": "jsonclass"
+  },
+  "test contains": {
+    "CONTAINS": "jsonlinktest"
+  },
+  "test textEquals": {
+    "TEXT_EQUALS": "jsonlinktest"
+  }
+}
