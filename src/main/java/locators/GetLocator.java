@@ -27,7 +27,7 @@ public class GetLocator {
 
     //string kismi jsonin key kismi, json element de value kismi oluyor
     //feature name is jsonj file ismi
-    public By getElementBy(String keyword) throws NoSuchSelector, KeywordNotFound {
+    public By getElementBy(String keyword) throws KeywordNotFound {
         JsonObject entries;
         try {
             entries = readJSON(keyword);
@@ -65,7 +65,6 @@ public class GetLocator {
         jsonElement = jsonObject.getAsJsonObject();
         return jsonElement.get(keyword).getAsJsonObject();
     }
-
 
     private static By generateByElement(String byType, String byValue) throws NoSuchSelector {
         LocatorType locatorType = LocatorType.valueOf(byType.toUpperCase());
