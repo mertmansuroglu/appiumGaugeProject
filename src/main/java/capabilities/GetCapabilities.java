@@ -1,23 +1,24 @@
 package capabilities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import exceptions.LocatorFileNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.checkerframework.common.reflection.qual.GetClass;
-import org.json.JSONArray;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class GetCapabilities {
     private static final Logger log = LogManager.getLogger(GetCapabilities.class);
 
-    public DesiredCapabilities getDesiredCapabilities(String capabilityName) throws Exception {
+    public static DesiredCapabilities getDesiredCapabilities(String capabilityName) throws Exception {
         HashMap<String, Object> capabilities = convertCapabilitiesToHashMap(capabilityName);
         return new DesiredCapabilities(capabilities);
     }
@@ -29,26 +30,28 @@ public class GetCapabilities {
     }
 
 
-    // TODO: 9.11.2021 burda surekli null pointer exception atiyor
-    private static JsonObject getCapability(String capabilityName) throws FileNotFoundException {
+    private static JsonObject getCapability(String capabilityName) throws FileNotFoundException, LocatorFileNotFound {
         Gson gson = new Gson();
-        JsonElement jsonObject;
-        JsonObject jsonElement;
         //readera json file inin pathini attik
-        FileReader reader = new FileReader(
-                Objects.requireNonNull(GetCapabilities.class
-                        .getClassLoader()
-                        .getResource("jsonFiles/getCaps.json"))
-                        .getPath());
-        jsonObject = gson.fromJson(reader, JsonElement.class);
-        jsonElement = jsonObject.getAsJsonObject();
-        // TODO: 9.11.2021 burada jsonarray ve JSONARRAY durumundan dolayimi sikinti var ? 
-        JsonArray ARRAY = jsonElement.get(capabilityName).getAsJsonObject().getAsJsonArray();
+        //we can use try catch in the file reader, if they didnt find file, you should put find failure@@
+        FileReader reader;
+        try {
+            reader = new FileReader(
+                    Objects.requireNonNull(GetCapabilities.class
+                            .getClassLoader()
+                            .getResource("jsonFiles/getCaps.json"))
+                            .getPath());
+        } catch (NullPointerException e) {
+            throw new LocatorFileNotFound("getCaps");
+        }
+        JsonArray ARRAY = gson.fromJson(reader, JsonElement.class).getAsJsonArray();
         for (Object jsonObj : ARRAY) {
             JsonObject capability = (JsonObject) jsonObj;
-            if (capability.get("name").toString().equalsIgnoreCase(capabilityName)) {
-                return (JsonObject) capability.get("capabilities");
+            if (capability.get("name").toString().contains(capabilityName)) {
+                return capability.get("caps").getAsJsonObject();
+
             }
+
         }
         return null;
     }

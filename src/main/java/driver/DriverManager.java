@@ -19,9 +19,10 @@ public class DriverManager {
 //bu sebeple onu bir methodla getirmemiz lazim bunun icin kullanilan pattern singleton bu sebeple surekli
 //newlemeye gerek olmayacak
     private static DriverManager instances = null;
-    private PlatformSelectable platformSelectable;
-    private AppiumDriver driver;
+    private static AppiumDriver driver;
     private final Logger log = LogManager.getLogger(DriverManager.class);
+    private PlatformSelectable platformSelectable;
+
     private DriverManager() {
 
     }
@@ -40,22 +41,21 @@ public class DriverManager {
 
     //its about to reading which browser will be used
     //browserName bu resource a eklenen properties filedan hanggi browser oldugunu ogrenmek icindir
-    public void createLocalDriver() throws Exception {
-        String browserName = System.getProperty("platforms");
-        Platforms browserType = Platforms.valueOf(browserName.toUpperCase(Locale.ROOT));
+    public void createLocalDriver(String platformType, String capabilityName) throws Exception {
+        Platforms platformmType = Platforms.valueOf(platformType.toUpperCase(Locale.ROOT));
 
-        switch (browserType) {
+        switch (platformmType) {
             case IOS:
                 platformSelectable = new IOS();
-                setDriver(platformSelectable.getDriver());
+                setDriver(platformSelectable.getDriver(capabilityName));
                 break;
             case ANDROID:
                 platformSelectable = new Android();
-                setDriver(platformSelectable.getDriver());
+                setDriver(platformSelectable.getDriver(capabilityName));
                 break;
             default:
                 log.error("you did not put the correct platform name");
-                throw new NoSuchSessionException();
+                throw new IllegalArgumentException();
 
         }
     }
@@ -71,8 +71,9 @@ public class DriverManager {
             log.debug("NoSuchSessionException occurred");
         }
     }
-//
-    public WebDriver getDriver() {
+
+    //
+    public AppiumDriver getDriver() {
         return driver;
     }
 

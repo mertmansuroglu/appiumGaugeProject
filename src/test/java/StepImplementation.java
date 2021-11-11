@@ -1,20 +1,23 @@
-import capabilities.GetCapabilities;
 import com.thoughtworks.gauge.Step;
-import com.thoughtworks.gauge.Table;
-import com.thoughtworks.gauge.TableRow;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.util.HashSet;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import driver.DriverManager;
+import locators.GetLocator;
+import org.junit.jupiter.api.Test;
 
 public class StepImplementation {
 
-private GetCapabilities getCapabilities;
+
+    @Test()
+    public void testSon() throws Exception {
+
+        GetLocator getLocator = new GetLocator();
+        getLocator.getElementBy("test name");
+
+        DriverManager.getInstances().getDriver().findElement(getLocator.getElementBy("test name")).click();
+
+    }
+
     @Step("Launch browser")
-    public void implementation1() throws Exception {
-        DesiredCapabilities cap = getCapabilities.getDesiredCapabilities("iPhone_13_installed");
-        System.out.println(cap);
+    public void implementation1() {
 
     }
 

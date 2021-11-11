@@ -3,10 +3,11 @@ package locators;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import driver.DriverManager;
 import enums.LocatorType;
-import enums.RelativeType;
 import exceptions.KeywordNotFound;
 import exceptions.NoSuchSelector;
+import io.appium.java_client.MobileBy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -18,12 +19,48 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import static org.openqa.selenium.support.locators.RelativeLocator.with;
-
 public class GetLocator {
-    //FILE READERI MOCKLAMAMIZ LAZIM!!!
-    //GSON METHODUNU MOCKLAMAM LAZIM
+
     private static final Logger log = LogManager.getLogger(GetLocator.class);
+
+    private static By generateByElement(String byType, String byValue) throws NoSuchSelector {
+        LocatorType locatorType = LocatorType.valueOf(byType.toUpperCase());
+        switch (locatorType) {
+            case ACCESSIBILITY_ID:
+                return MobileBy.AccessibilityId(byValue);
+            case ID:
+                return MobileBy.id(byValue);
+            case NAME:
+                return MobileBy.name(byValue);
+            case CLASS_NAME:
+                return MobileBy.className(byValue);
+            case XPATH:
+                return MobileBy.xpath(byValue);
+            case TEXT_EQUALS:
+                if (DriverManager.getInstances().getDriver().getClass().getSimpleName().equalsIgnoreCase("AndroidDriver")) {
+                    return MobileBy.xpath("//*[@text='" + byValue + "']");
+                } else {
+                    return MobileBy.xpath("//*[@name='" + byValue + "']");
+                }
+            case LINK_TEXT:
+                return MobileBy.linkText(byValue);
+
+            case ANDROID_UI_AUTOMATOR:
+                return MobileBy.AndroidUIAutomator(byValue);
+            case PREDICATE_STRING:
+                return MobileBy.iOSNsPredicateString(byValue);
+            case CLASSCHAIN_IOS:
+                return MobileBy.iOSClassChain(byValue);
+            case TEXT_CONTAINS:
+                if (DriverManager.getInstances().getDriver().getClass().getSimpleName().equalsIgnoreCase("AndroidDriver")) {
+                    return MobileBy.xpath("//*[contains(@text,'" + byValue + "')]");
+                } else {
+                    MobileBy.xpath("//*[contains(@name,'" + byValue + "')]");
+                }
+            default:
+                throw new NoSuchSelector(byType);
+        }
+    }
 
     //string kismi jsonin key kismi, json element de value kismi oluyor
     //feature name is jsonj file ismi
@@ -33,22 +70,19 @@ public class GetLocator {
             entries = readJSON(keyword);
         } catch (IOException e) {
             log.error(e.getMessage());
-            log.error("{} is not found in file",keyword);
+            log.error("{} is not found in file", keyword);
             throw new KeywordNotFound(keyword);
         }
         By by;
         Set<Map.Entry<String, JsonElement>> locators;
 
-            locators = entries.entrySet();
-            by = getBy(locators).get(0);
+        locators = entries.entrySet();
+        by = getBy(locators).get(0);
 
         return by;
     }
 
-
-    //we use gson for reading the json file
-    //gson convert json file to json object
-    //gherkin dilinin olayi herkes test yazabilsin
+    // TODO: 11.11.2021 asagida normalde //  yapmamiz lazimdi neden tek slash??
     private JsonObject readJSON(String keyword) throws IOException {
         Gson gson = new Gson();
         JsonElement jsonObject;
@@ -56,43 +90,14 @@ public class GetLocator {
         //readera json file inin pathini attik
         FileReader reader = new FileReader(
                 Objects.requireNonNull(getClass()
-                                .getClassLoader()
-                                .getResource("locators/GetLocator.json"))
+                        .getClassLoader()
+                        .getResource("jsonFiles/locator.json"))
                         .getPath());
 
         jsonObject = gson.fromJson(reader, JsonElement.class);
         //json objecti json elemente ceviriyor
         jsonElement = jsonObject.getAsJsonObject();
         return jsonElement.get(keyword).getAsJsonObject();
-    }
-
-    private static By generateByElement(String byType, String byValue) throws NoSuchSelector {
-        LocatorType locatorType = LocatorType.valueOf(byType.toUpperCase());
-        switch (locatorType) {
-            case ID:
-                return By.id(byValue);
-            case NAME:
-                return By.name(byValue);
-            case CLASS_NAME:
-                return By.className(byValue);
-            case XPATH:
-                return By.xpath(byValue);
-            case TEXT_EQUALS:
-                return By.xpath("//*[text()='" + byValue + "']");
-            case LINK_TEXT:
-                return By.linkText(byValue);
-            case PARTIAL_LINK_TEXT:
-                return By.partialLinkText(byValue);
-            case CONTAINS:
-                return By.xpath("//*[contains(@id, '" + byValue + "')] or " +
-                        "//*[contains(@class, '" + byValue + "')]" +
-                        "//*[contains(@tag, '" + byValue + "')]" +
-                        "//*[contains(@span, '" + byValue + "')]" +
-                        "//*[contains(@name, '" + byValue + "')]" +
-                        "//*[contains(text(), '" + byValue + "')]");
-            default:
-                throw new NoSuchSelector(byType);
-        }
     }
 
     private ArrayList<By> getBy(Set<Map.Entry<String, JsonElement>> locators) {
@@ -108,6 +113,13 @@ public class GetLocator {
         }
         return by;
     }
+
+    //we use gson for reading the json file
+    //gson convert json file to json object
+    //gherkin dilinin olayi herkes test yazabilsin
+
+
 }
+
 
 //PRESENCE VISIBLE HELPER WAIT HELPER@@@

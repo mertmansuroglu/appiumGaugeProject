@@ -1,15 +1,12 @@
 package platforms;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.WebDriver;
-
-import java.net.MalformedURLException;
+import io.appium.java_client.MobileElement;
 
 
 public interface PlatformSelectable {
 
-    AppiumDriver getDriver() throws Exception;
+    AppiumDriver<MobileElement> getDriver(String capabilityName) throws Exception;
 
 //kullanacagimiz tum classlarda ayni seyi yapmamiz lazim bu sebeple interface olusturup ordan tureticez diger classlari
 }

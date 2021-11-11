@@ -12,3 +12,6 @@ gauge_bin
 
 # Gauge - java class target dir
 target
+
+# intellij idea settings
+.idea

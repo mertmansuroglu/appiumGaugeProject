@@ -1,7 +1,7 @@
 [
-   {
+  {
     "name": "iPhone_13_installed",
-    "capabilities": {
+    "caps": {
       "appium:deviceName": "iPhone",
       "platformName": "iOS",
       "appium:platformVersion": "15",
@@ -20,7 +20,7 @@
   },
   {
     "name": "iPhone_13_toInstall",
-    "capabilities": {
+    "caps": {
       "appium:deviceName": "iPhone",
       "platformName": "iOS",
       "appium:platformVersion": "15",
@@ -39,8 +39,8 @@
     }
   },
   {
-      "name":"Pixel_2_toInstall",
-    "capabilities": {
+    "name": "Pixel_2_toInstall",
+    "caps": {
       "appium:deviceName": "emulator-5554",
       "platformName": "android",
       "appium:platformVersion": "11",
@@ -60,8 +60,8 @@
     }
   },
   {
-  "name":"Pixel_2_installed",
-    "capabilities": {
+    "name": "Pixel_2_installed",
+    "caps": {
       "appium:deviceName": "emulator-5554",
       "platformName": "android",
       "appium:platformVersion": "11",
@@ -78,6 +78,24 @@
       "appium:appActivity": "ui.splash.view.SplashActivity",
       "disableAndroidWatchers": "copy past true",
       "autoGrantPermissions": "true"
+    }
+  },
+  {
+    "name": "emulatorAndroid",
+    "caps": {
+      "appium:deviceName": "emulator-5556",
+      "platformName": "android",
+      "appium:platformVersion": "8.1.0",
+      "appium:automationName": "uiautomator2",
+      "appium:udid": "emulator-5556",
+      "appium:noReset": "false",
+      "appium:launchTimeout": "14000",
+      "appium:systemPort": "4728",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:app": "/Users/mertmansuroglu/packages/selendroid.apk"
     }
   }
 ]

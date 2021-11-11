@@ -1,8 +1,8 @@
 package exceptions;
 
-public class NoSuchSelector extends Exception{
+public class NoSuchSelector extends Exception {
 
-    final String  message;
+    final String message;
 
     public NoSuchSelector(String selector) {
 

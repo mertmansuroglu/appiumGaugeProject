@@ -7,9 +7,12 @@ public enum LocatorType {
     NAME("name"),
     CLASS_NAME("className"),
     LINK_TEXT("linkText"),
-    PARTIAL_LINK_TEXT("partialLinkText"),
-    CONTAINS("contains"),
-    TEXT_EQUALS("textEquals");
+    TEXT_CONTAINS("contains"),
+    ACCESSIBILITY_ID("accessibilityId"),
+    PREDICATE_STRING("predicateString"),
+    TEXT_EQUALS("textEquals"),
+    CLASSCHAIN_IOS("classchainIos"),
+    ANDROID_UI_AUTOMATOR("androidUiAutomator");
 
     private final String locatorTypeText;
 

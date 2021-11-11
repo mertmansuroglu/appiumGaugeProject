@@ -14,5 +14,7 @@ public enum GsmType {
         this.areCodeList = areCodeList;
     }
 
-    public List<String> getAreCodeList(){ return areCodeList;}
+    public List<String> getAreCodeList() {
+        return areCodeList;
+    }
 }
