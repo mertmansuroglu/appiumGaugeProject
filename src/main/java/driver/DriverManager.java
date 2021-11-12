@@ -5,7 +5,6 @@ import io.appium.java_client.AppiumDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.WebDriver;
 import platforms.Android;
 import platforms.IOS;
 import platforms.PlatformSelectable;
@@ -14,6 +13,7 @@ import java.util.Locale;
 
 public class DriverManager {
 
+    // TODO: 12.11.2021 driveri static yaptim dogrumu 
     //we use singleton
 //driveri surekli static olarak public olarak tutmak yazilim kurali acisindan yanlis
 //bu sebeple onu bir methodla getirmemiz lazim bunun icin kullanilan pattern singleton bu sebeple surekli

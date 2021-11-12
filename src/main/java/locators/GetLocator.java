@@ -44,7 +44,6 @@ public class GetLocator {
                 }
             case LINK_TEXT:
                 return MobileBy.linkText(byValue);
-
             case ANDROID_UI_AUTOMATOR:
                 return MobileBy.AndroidUIAutomator(byValue);
             case PREDICATE_STRING:
