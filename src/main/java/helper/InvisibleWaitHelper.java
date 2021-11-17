@@ -34,7 +34,7 @@ public class InvisibleWaitHelper extends WaitRootHelper {
      * @return boolean deger doner
      */
     public void isInvisible(By by) {
-        isInvisible(by, default_timeout);
+        isInvisible(by, DEFAULT_TIMEOUT);
     }
 
 
@@ -52,15 +52,15 @@ public class InvisibleWaitHelper extends WaitRootHelper {
 
 
     public void invisibilityOfAllElements(By by) {
-        invisibilityOfAllElements(by, default_timeout);
+        invisibilityOfAllElements(by, DEFAULT_TIMEOUT);
     }
 
     public void isInvisiblePolling(By by, int pollingDuration) {
-        isInvisiblePolling(by, default_timeout);
+        isInvisiblePolling(by, DEFAULT_TIMEOUT);
     }
 
     public void invisibilityOfAllElementsPolling(By by, int pollingDuration) {
-        invisibilityOfAllElementsPolling(by, default_timeout, pollingDuration);
+        invisibilityOfAllElementsPolling(by, DEFAULT_TIMEOUT, pollingDuration);
     }
 
 }

@@ -20,7 +20,7 @@ public class ClickableWaitHelper extends WaitRootHelper {
      */
     protected WebElement waitUntilClickable(By by, int timeOut) {
 
-        return getWebDriverWait(timeOut, sleepInMills).until(ExpectedConditions.elementToBeClickable(by));
+        return getWebDriverWait(timeOut, SLEEP_IN_MILLS).until(ExpectedConditions.elementToBeClickable(by));
 
     }
 
@@ -37,11 +37,11 @@ public class ClickableWaitHelper extends WaitRootHelper {
      * @param by Elementin locator bilgisi
      */
     protected WebElement waitUntilClickable(By by) {
-        return waitUntilClickable(by, default_timeout);
+        return waitUntilClickable(by, DEFAULT_TIMEOUT);
     }
 
     protected WebElement waitUntilClickablePolling(By by, int pollingDuration) {
-        return waitUntilClickablePolling(by, default_timeout, pollingDuration);
+        return waitUntilClickablePolling(by, DEFAULT_TIMEOUT, pollingDuration);
     }
 
 

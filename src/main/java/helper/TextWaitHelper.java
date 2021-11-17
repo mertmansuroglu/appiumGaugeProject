@@ -20,7 +20,7 @@ public class TextWaitHelper extends WaitRootHelper {
      */
     public void waitUntilTextToBePresentInElement(By by, int timeOut, String text) {
 
-        getWebDriverWait(timeOut, sleepInMills).until(ExpectedConditions.textToBePresentInElementLocated(by, text));
+        getWebDriverWait(timeOut, SLEEP_IN_MILLS).until(ExpectedConditions.textToBePresentInElementLocated(by, text));
     }
 
     public void waitUntilTextToBePresentInElementPolling(By by, int timeout, int pollingDuration, String text) {
@@ -35,10 +35,10 @@ public class TextWaitHelper extends WaitRootHelper {
      * @param by Elementin locator bilgisi
      */
     public void waitUntilTextToBePresentInElement(By by, String text) {
-        waitUntilTextToBePresentInElement(by, default_timeout, text);
+        waitUntilTextToBePresentInElement(by, DEFAULT_TIMEOUT, text);
     }
 
     public void waitUntilTextToBePresentInElementPolling(By by, String text, int pollingDuration) {
-        waitUntilTextToBePresentInElementPolling(by, default_timeout, pollingDuration, text);
+        waitUntilTextToBePresentInElementPolling(by, DEFAULT_TIMEOUT, pollingDuration, text);
     }
 }
