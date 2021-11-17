@@ -1,6 +1,7 @@
 package helper;
 
 import driver.DriverManager;
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -53,6 +54,10 @@ public class FindHelper {
         return presenceHelper.waitUntilPresenceAllPolling(by, pollingDuration);
     }
 
+    public List<WebElement> findElementsWithPresencePolling(By by) {
+        return presenceHelper.waitUntilPresenceAllPolling(by);
+    }
+
 
     public WebElement findElementWitClickableWait(By by) {
         return clickableHelper.waitUntilClickable(by);
@@ -88,10 +93,14 @@ public class FindHelper {
         return visibleHelper.waitUntilVisiblePolling(by, timeout, pollingDuration);
     }
 
+    public WebElement findElementWithVisiblePolling(By by) {
+        return visibleHelper.waitUntilVisiblePolling(by);
+    }
 
     public List<WebElement> findElementsWithVisibleWait(By by, int timeout) {
         return visibleHelper.waitUntilVisibleAll(by, timeout);
     }
+
 
     public List<WebElement> findElementsWithVisibleWait(By by) {
         return visibleHelper.waitUntilVisibleAll(by);
@@ -111,6 +120,11 @@ public class FindHelper {
     }
 
     public List<WebElement> findElements(By by) {
+        return DriverManager.getInstances().getDriver().findElements(by);
+    }
+
+    public List<MobileElement> findElementsMobile(By by) {
+        presenceHelper.waitUntilPresenceAll(by);
         return DriverManager.getInstances().getDriver().findElements(by);
     }
 

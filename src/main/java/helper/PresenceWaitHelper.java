@@ -51,7 +51,7 @@ public class PresenceWaitHelper extends WaitRootHelper {
      * @param by Elementin locator bilgisi
      */
     protected WebElement waitUntilPresence(By by) {
-        return waitUntilPresence(by, default_timeout);
+        return waitUntilPresence(by, DEFAULT_TIMEOUT);
     }
 
     /**
@@ -60,14 +60,22 @@ public class PresenceWaitHelper extends WaitRootHelper {
      * @param by Elementlerin locator bilgisi
      */
     protected List<WebElement> waitUntilPresenceAll(By by) {
-        return waitUntilPresenceAll(by, default_timeout);
+        return waitUntilPresenceAll(by, DEFAULT_TIMEOUT);
     }
 
     protected WebElement waitUntilPresencePolling(By by, int pollingDuration) {
-        return waitUntilPresencePolling(by, default_timeout, pollingDuration);
+        return waitUntilPresencePolling(by, DEFAULT_TIMEOUT, pollingDuration);
     }
 
     protected List<WebElement> waitUntilPresenceAllPolling(By by, int pollingDuration) {
-        return waitUntilPresenceAllPolling(by, default_timeout, pollingDuration);
+        return waitUntilPresenceAllPolling(by, DEFAULT_TIMEOUT, pollingDuration);
+    }
+
+    protected List<WebElement> waitUntilPresenceAllPolling(By by) {
+        return waitUntilPresenceAllPolling(by, DEFAULT_TIMEOUT, SLEEP_IN_MILLS);
+    }
+
+    protected WebElement waitUntilPresencePolling(By by) {
+        return waitUntilPresencePolling(by, DEFAULT_TIMEOUT, SLEEP_IN_MILLS);
     }
 }

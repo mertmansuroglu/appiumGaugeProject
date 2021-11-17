@@ -36,7 +36,7 @@ public class VisibleWaitHelper extends WaitRootHelper {
      * @param by Elementin locator bilgisi
      */
     protected WebElement waitUntilVisible(By by) {
-        return waitUntilVisible(by, default_timeout);
+        return waitUntilVisible(by, DEFAULT_TIMEOUT);
     }
 
     /**
@@ -61,14 +61,22 @@ public class VisibleWaitHelper extends WaitRootHelper {
      * @param by Elementlerin locator bilgisi
      */
     protected List<WebElement> waitUntilVisibleAll(By by) {
-        return waitUntilVisibleAll(by, default_timeout);
+        return waitUntilVisibleAll(by, DEFAULT_TIMEOUT);
     }
 
     protected WebElement waitUntilVisiblePolling(By by, int pollingDuration) {
-        return waitUntilVisiblePolling(by, default_timeout, pollingDuration);
+        return waitUntilVisiblePolling(by, DEFAULT_TIMEOUT, pollingDuration);
     }
 
     protected List<WebElement> waitUntilVisibleAllPolling(By by, int pollingDuration) {
-        return waitUntilVisibleAllPolling(by, default_timeout, pollingDuration);
+        return waitUntilVisibleAllPolling(by, DEFAULT_TIMEOUT, pollingDuration);
+    }
+
+    protected List<WebElement> waitUntilVisibleAllPolling(By by) {
+        return waitUntilVisibleAllPolling(by, DEFAULT_TIMEOUT, SLEEP_IN_MILLS);
+    }
+
+    protected WebElement waitUntilVisiblePolling(By by) {
+        return waitUntilVisiblePolling(by, DEFAULT_TIMEOUT, SLEEP_IN_MILLS);
     }
 }

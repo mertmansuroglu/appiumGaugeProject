@@ -20,16 +20,16 @@ import java.util.Objects;
 import java.util.Set;
 
 public class GetLocator {
-
+    // TODO: 14.11.2021  jsonda birden fazla locator koymak istersen nasil alacaz !!!!!!!!!!!!!! name mert1 name mert2
     private static final Logger log = LogManager.getLogger(GetLocator.class);
 
-    private static By generateByElement(String byType, String byValue) throws NoSuchSelector {
+    public static By generateByElement(String byType, String byValue) throws NoSuchSelector {
         LocatorType locatorType = LocatorType.valueOf(byType.toUpperCase());
         switch (locatorType) {
             case ACCESSIBILITY_ID:
                 return MobileBy.AccessibilityId(byValue);
             case ID:
-                return MobileBy.id(byValue);
+                return By.id(byValue);
             case NAME:
                 return MobileBy.name(byValue);
             case CLASS_NAME:

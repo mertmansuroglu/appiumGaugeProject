@@ -2,14 +2,19 @@ package helper;
 
 import driver.DriverManager;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.touch.TouchActions;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
+import java.util.List;
 
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
@@ -21,108 +26,66 @@ public class TouchActionsHelper {
     private FindHelper findHelper = new FindHelper();
 
 
-    private TouchActions getTouchActions() {
-        TouchActions actions = new TouchActions(DriverManager.getInstances().getDriver());
-        return actions;
-
-    }
-
-    private TouchAction getTouchAction() {
+    public TouchAction getTouchAction() {
         TouchAction action = new TouchAction(DriverManager.getInstances().getDriver());
         return action;
 
     }
 
-    // TODO: 12.11.2021 buralara try catch konabilirmi konursa ne konur
-    //biz direk web element gondermedende yapabilirdik ama asagida element gonderip yaptik
-    //by i gondermek icin clickable helper icerisine koyup gonderdik
-    public void sendKeys(By by, CharSequence value) {
-        findHelper.findElementWithPresenceWait(by);
-        findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        //actions ile yapilacak islemi once build ile execute e ready ederiz sonrada performla execute yapariz
-        getTouchActions().sendKeys(element, value).build().perform();
-        log.info("'{}' objesine '{}' değeri yazıldı.", by, value);
+    public Actions getAction() {
+        Actions action = new Actions(DriverManager.getInstances().getDriver());
+        return action;
+
     }
 
-    public void actionClick(By by) {
-        findHelper.findElementWithPresenceWait(by);
-        findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().click(element).build().perform();
-        log.info("'{}' objesine tıklandı.", by);
+    public void handleSeekBarAndroid(By by, double percent) throws InterruptedException {
+        WebElement seek_bar = findHelper.findElementWithPresenceWait(by);
+        //start coordinate of seekbar
+        int start = seek_bar.getLocation().getX();
+        //get width seekbar size
+        int end = seek_bar.getSize().getWidth();
+        //dikey olarak seek bar coordinati
+        int y = seek_bar.getLocation().getY();
+        int moveToPortion = (int) (end * percent);
+        getTouchAction().longPress(PointOption.point(start, y)).moveTo(PointOption.point(moveToPortion, y)).release().perform();
+        Thread.sleep(3000);
     }
 
-    public void actionTap(By by) {
+    public void handleSeekBarIOS(By sliderby, String percent) throws InterruptedException {
+        findHelper.findElementsWithPresenceWait(sliderby);
+        findHelper.findElementWitClickableWait(sliderby);
+        List<MobileElement> slide = findHelper.findElementsMobile(sliderby);
+        System.out.println("" + percent + "%");
+        slide.get(0).setValue("" + percent + "%");
+
+    }
+
+    public TouchAction actionTap(By by) {
         findHelper.findElementWithPresenceWait(by);
         findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().singleTap(element).build().perform();
-        log.info("'{}' objesine tıklandı.", by);
+        MobileElement element = (MobileElement) findHelper.findElementWitClickableWait(by);
+        return getTouchAction().tap(TapOptions.tapOptions().withElement(ElementOption.element(element)));
     }
+
     public void actionDoubleTap(By by) {
         findHelper.findElementWithPresenceWait(by);
         findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().doubleTap(element).build().perform();
+        MobileElement element = (MobileElement) findHelper.findElementWitClickableWait(by);
+        MultiTouchAction multiTouch = new MultiTouchAction(DriverManager.getInstances().getDriver());
+        multiTouch.add(actionTap(by))
+                .add(actionTap(by))
+                .perform();
         log.info("'{}' objesine cift tap edildi.", by);
+//        new TouchAction(driver).press(PointOption.point(328, 185)).release().perform().press(PointOption.point(338, 185)).release().perform();
     }
 
-    public void actionMoveDown(int x, int y) {
-        getTouchActions().down(x,y).build().perform();
-        log.info("{},ve {} kordinatlarına move down edildi.", x,y);
-    }
-    public void actionMoveUp(int x, int y) {
-        getTouchActions().up(x,y).build().perform();
-        log.info("{},ve {} kordinatlarına move up edildi.", x,y);
-    }
-    public void actionFlick(int x, int y) {
-        getTouchActions().flick(x,y).build().perform();
-        log.info("{},ve {} hiziyla flick edildi.", x,y);
-    }
-    public void actionFlick(By by,int x, int y,int speed) {
-        findHelper.findElementWithPresenceWait(by);
-        findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().flick(element,x,y,speed).build().perform();
-        log.info("{},ve {} kordinatina {} elementinden {} hiziyla flick edildi.", x,y,by,speed);
-    }
-    public void actionMoveGeneral(int x, int y) {
-        getTouchActions().move(x,y).build().perform();
-        log.info("{},ve {} kordinatlarına move edildi.", x,y);
-    }
-    public void actionScroll(By by,int x, int y) {
-        findHelper.findElementWithPresenceWait(by);
-        findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().scroll(element,x,y).build().perform();
-        log.info("{} elementinden {},ve {} kordinatlarına scroll edildi.", by,x,y);
-    }
-    public void actionScroll(int x, int y) {
-        getTouchActions().scroll(x,y).build().perform();
-        log.info("su anki yerden {},ve {} kordinatlarına scroll edildi.",x,y);
-    }
-    public void actionClickByPoint(int x, int y) {
-        //scroll helper will be added!!!
-        getTouchActions().moveByOffset(x, y).click().build().perform();
-        log.info("{},{} kordinatlarına tıklandı.", x, y);
-    }
 
     // tiklayip basili tutar
-    public void actionClickAndHold(By by) throws InterruptedException {
-        findHelper.findElementWithPresenceWait(by);
-        findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().clickAndHold(element).build().perform();
-        log.info("'{}' objesine tıklandı.", by);
-    }
-    // tiklayip basili tutar
-    public void actionLongPress(By by ,int duration) throws InterruptedException {
+    public void actionLongPress(By by, int duration) throws InterruptedException {
         findHelper.findElementWithPresenceWait(by);
         findHelper.findElementWitVisibleWait(by);
         WebElement element = findHelper.findElementWitClickableWait(by);
         getTouchAction().longPress(longPressOptions().withElement(element(element)).withDuration(Duration.ofSeconds(duration))).release().perform();
-
         log.info("'{}' objesine uzun basildi.", by);
     }
 
@@ -134,6 +97,7 @@ public class TouchActionsHelper {
         WebElement elementDrop = findHelper.findElementWitClickableWait(dropBy);
         getTouchAction().longPress(longPressOptions().withElement(element(element)).withDuration(ofSeconds(duration))).moveTo(element(elementDrop)).release().perform();
     }
+
     public void touchActiondragDrop(By dragBy, By dropBy) {
         findHelper.findElementWithPresenceWait(dragBy);
         findHelper.findElementWitVisibleWait(dragBy);
@@ -142,22 +106,12 @@ public class TouchActionsHelper {
         getTouchAction().longPress(longPressOptions().withElement(element(element)).withDuration(ofSeconds(4))).moveTo(element(elementDrop)).release().perform();
     }
 
-    public void actionDoubleClick(By by) {
-        findHelper.findElementWithPresenceWait(by);
-        findHelper.findElementWitVisibleWait(by);
-        WebElement element = findHelper.findElementWitClickableWait(by);
-        getTouchActions().doubleClick(element).build().perform();
-        log.info("'{}' objesine cift tiklandi", by);
-    }
-
-
     public void actionDragDrop(By sourceElementBy, By targetElementBy) {
         findHelper.findElementWithPresenceWait(sourceElementBy);
         findHelper.findElementWitVisibleWait(sourceElementBy);
-        //scroll helper will be added!!!
         WebElement element = findHelper.findElementWitClickableWait(sourceElementBy);
         WebElement targetElement = findHelper.findElementWitVisibleWait(targetElementBy);
-        getTouchActions().dragAndDrop(element, targetElement).build().perform();
+        getAction().dragAndDrop(element, targetElement).build().perform();
         log.info("{}, elementinin üstünde  basılı tutuldu ve {}, elementinin üstüne kadar sürüklenip bırakıldı.", element, targetElement);
     }
 
@@ -165,11 +119,7 @@ public class TouchActionsHelper {
         findHelper.findElementWithPresenceWait(sourceElementBy);
         findHelper.findElementWitVisibleWait(sourceElementBy);
         WebElement element = findHelper.findElementWitClickableWait(sourceElementBy);
-        getTouchActions().dragAndDropBy(element, x, y).build().perform();
+        getAction().dragAndDropBy(element, x, y).build().perform();
         log.info("{}, elementinin üstünde  basılı tutuldu ve {}, {} kordinatlarına kadar sürüklenip bırakıldı.", element, x, y);
     }
-
-
-
-
 }

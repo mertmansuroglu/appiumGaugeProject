@@ -83,19 +83,38 @@
   {
     "name": "emulatorAndroid",
     "caps": {
-      "appium:deviceName": "emulator-5556",
+      "appium:deviceName": "emulator-5554",
       "platformName": "android",
-      "appium:platformVersion": "8.1.0",
+      "appium:platformVersion": "9",
       "appium:automationName": "uiautomator2",
-      "appium:udid": "emulator-5556",
+      "appium:udid": "emulator-5554",
       "appium:noReset": "false",
-      "appium:launchTimeout": "14000",
-      "appium:systemPort": "4728",
+      "appium:launchTimeout": "5000",
+      "appium:newCommandTimeout": "300",
       "appium:autoAcceptAlerts": "true",
       "appium:rotatable": "true",
       "appium:shouldTerminateApp": "true",
       "appium:autoGrantPermissions": "true",
-      "appium:app": "/Users/mertmansuroglu/packages/selendroid.apk"
+      "appium:app": "/Users/mertmansuroglu/Desktop/ApiDemos-debug.apk"
+    }
+  },
+  {
+    "name": "emulatorIos",
+    "caps": {
+      "appium:deviceName": "iPhone 8",
+      "platformName": "iOS",
+      "appium:platformVersion": "15.0",
+      "appium:automationName": "XCUITest",
+      "appium:udid": "3DCBCDB7-7DE7-4932-8E0A-1F27D4DD442E",
+      "appium:noReset": "false",
+      "appium:launchTimeout": "5000",
+      "appium:newCommandTimeout": "300",
+      "appium:autoAcceptAlerts": "true",
+      "appium:rotatable": "true",
+      "appium:shouldTerminateApp": "true",
+      "appium:autoGrantPermissions": "true",
+      "appium:wdaLocalPort": "8207",
+      "appium:bundleId": "com.example.apple-samplecode.UICataloggmmm"
     }
   }
 ]

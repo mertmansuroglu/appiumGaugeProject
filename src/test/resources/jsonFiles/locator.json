@@ -5,8 +5,11 @@
   "test id": {
     "ID": "test"
   },
+  "test accesibiilityId": {
+    "ACCESSIBILITY_ID": "Buttons"
+  },
   "test name": {
-    "NAME": "jsontest"
+    "NAME": "mert1"
   },
   "test className": {
     "CLASS_NAME": "jsonclass"
@@ -18,9 +21,10 @@
     "PARTIAL_LINK_TEXT": "jsonclass"
   },
   "test contains": {
-    "CONTAINS": "jsonlinktest"
+    "TEXT_CONTAINS": "Continue"
   },
   "test textEquals": {
     "TEXT_EQUALS": "jsonlinktest"
   }
 }
+

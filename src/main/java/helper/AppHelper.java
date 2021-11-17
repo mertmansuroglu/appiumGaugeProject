@@ -15,7 +15,7 @@ public class AppHelper {
         return DriverManager.getInstances().getDriver();
     }
 
-
+    // TODO: 12.11.2021 burda attigimiz throw dogrumu ??? 
     public void terminateApp(String packageNameOrBundleId) throws Exception {
         if (getDriver() != null && Boolean.TRUE.equals(isAppInstalled(packageNameOrBundleId))) {
             try {
@@ -49,6 +49,7 @@ public class AppHelper {
             }
         }
     }
+
     public void closeApp() throws Exception {
         if (getDriver() != null) {
             try {
@@ -83,6 +84,7 @@ public class AppHelper {
             }
         }
     }
+
     public void installApp(String packageNameOrBundleId) throws Exception {
         if (getDriver() != null) {
             try {
@@ -94,7 +96,8 @@ public class AppHelper {
         }
     }
 
-    public Boolean isAppInstalled(String packageNameOrBundleId)  {
+    // TODO: 12.11.2021 burdaki mantik dogrumu 
+    public Boolean isAppInstalled(String packageNameOrBundleId) {
         if (getDriver() != null) {
             boolean appExist = getDriver().isAppInstalled(packageNameOrBundleId);
             if (appExist) {

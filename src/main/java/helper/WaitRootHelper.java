@@ -5,8 +5,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WaitRootHelper {
 
-    protected static final int default_timeout = 30;
-    protected static final int sleepInMills = 40;
+    protected static final int DEFAULT_TIMEOUT = 30;
+    protected static final int SLEEP_IN_MILLS = 80;
 
     /**
      * Asagida ki method her call edilidingde wait objesi olusturur //WebDriverWait(driver,30) e karsilik gelir
@@ -14,11 +14,11 @@ public class WaitRootHelper {
      * @return wait objesi doner
      */
     protected WebDriverWait getWebDriverWait() {
-        return getWebDriverWait(default_timeout, sleepInMills);
+        return getWebDriverWait(DEFAULT_TIMEOUT, SLEEP_IN_MILLS);
     }
 
     protected WebDriverWait getWebDriverWait(int timeout) {
-        return getWebDriverWait(timeout, sleepInMills);
+        return getWebDriverWait(timeout, SLEEP_IN_MILLS);
 
     }
 
